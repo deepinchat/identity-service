@@ -7,6 +7,7 @@ using Deepin.Identity.Web.Setup;
 using Duende.IdentityServer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using StackExchange.Redis;
 using System.Security.Cryptography.X509Certificates;
 
@@ -25,6 +26,7 @@ public static class HostingExtensions
         };
 
         builder.Services.AddRazorPages();
+        builder.Services.AddHealthChecks().AddCheck("default", () => HealthCheckResult.Healthy());
         builder.Services
             .AddInfrastructure(appSettings)
             .AddApplication()
@@ -120,6 +122,7 @@ public static class HostingExtensions
         app.UseIdentityServer();
         app.UseAuthorization();
 
+        app.MapHealthChecks("health");
         app.MapRazorPages()
             .RequireAuthorization();
 
