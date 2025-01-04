@@ -7,8 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{010E05B0-E1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A67E6FB2-F7F5-445B-BEAE-97C7582FB1BB}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
 		.github\workflows\docker-image-ci.yaml = .github\workflows\docker-image-ci.yaml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.Domain", "src\Deepin.Identity.Domain\Deepin.Identity.Domain.csproj", "{E76E3F2A-CB4C-4622-9CB1-4A4677973637}"
@@ -17,7 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.Infrastructure", "src\Deepin.Identity.Infrastructure\Deepin.Identity.Infrastructure.csproj", "{0992798F-164A-48A5-BF90-7EB17F1AB886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.Web", "src\Deepin.Identity.Web\Deepin.Identity.Web.csproj", "{8CC9DB2B-E70F-493D-AC58-99CF6F496A8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.Server", "src\Deepin.Identity.Server\Deepin.Identity.Server.csproj", "{F348149E-AEE9-4114-ADCC-224D6CC8C797}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "deepin.identity.client", "src\deepin.identity.client\deepin.identity.client.esproj", "{21FD209A-E891-4A52-BC6E-330C2D79DCE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +39,16 @@ Global
 		{0992798F-164A-48A5-BF90-7EB17F1AB886}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0992798F-164A-48A5-BF90-7EB17F1AB886}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0992798F-164A-48A5-BF90-7EB17F1AB886}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CC9DB2B-E70F-493D-AC58-99CF6F496A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CC9DB2B-E70F-493D-AC58-99CF6F496A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CC9DB2B-E70F-493D-AC58-99CF6F496A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CC9DB2B-E70F-493D-AC58-99CF6F496A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F348149E-AEE9-4114-ADCC-224D6CC8C797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F348149E-AEE9-4114-ADCC-224D6CC8C797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F348149E-AEE9-4114-ADCC-224D6CC8C797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F348149E-AEE9-4114-ADCC-224D6CC8C797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,7 @@ Global
 		{E76E3F2A-CB4C-4622-9CB1-4A4677973637} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
 		{D02E8CDC-29D9-44AA-B1BA-C0E9B931B192} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
 		{0992798F-164A-48A5-BF90-7EB17F1AB886} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
-		{8CC9DB2B-E70F-493D-AC58-99CF6F496A8A} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
+		{F348149E-AEE9-4114-ADCC-224D6CC8C797} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
+		{21FD209A-E891-4A52-BC6E-330C2D79DCE8} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
 	EndGlobalSection
 EndGlobal
