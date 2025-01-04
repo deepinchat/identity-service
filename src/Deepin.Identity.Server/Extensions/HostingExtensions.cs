@@ -138,6 +138,7 @@ public static class HostingExtensions
 
                  // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
                  options.EmitStaticAudienceClaim = true;
+                 options.KeyManagement.Enabled = false;
              })
              .AddConfigurationStore<ConfigurationContext>()
              .AddOperationalStore<PersistedGrantContext>(options =>
