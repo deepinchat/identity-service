@@ -39,6 +39,7 @@ public static class HostingExtensions
         };
         builder.Services
             .AddCustomMvc()
+            .AddCustomCookiePolicy()
             .AddInfrastructure(appSettings)
             .AddApplication()
             .AddCustomIdentity()
@@ -89,6 +90,22 @@ public static class HostingExtensions
                        .AllowAnyHeader()
                        .AllowCredentials();
             });
+        });
+        return services;
+    }
+    private static IServiceCollection AddCustomCookiePolicy(this IServiceCollection services)
+    {
+        services.Configure<CookiePolicyOptions>(options =>
+        {
+            options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+            options.OnAppendCookie = (cookieContext) =>
+            {
+                cookieContext.CookieOptions.SameSite = SameSiteMode.Unspecified;
+            };
+            options.OnDeleteCookie = (cookieContext) =>
+            {
+                cookieContext.CookieOptions.SameSite = SameSiteMode.Unspecified;
+            };
         });
         return services;
     }
@@ -243,6 +260,8 @@ public static class HostingExtensions
 
         // Configure the HTTP request pipeline.
         app.UseHttpsRedirection();
+
+        app.UseCookiePolicy();
 
         app.UseIdentityServer();
         app.UseAuthorization();
