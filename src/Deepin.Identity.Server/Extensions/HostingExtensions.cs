@@ -10,6 +10,7 @@ using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
@@ -83,9 +84,10 @@ public static class HostingExtensions
         {
             options.AddPolicy(ALLOW_ANY_CORS_POLICY, builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.SetIsOriginAllowed(_ => true)
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       .AllowCredentials();
             });
         });
         return services;
@@ -108,7 +110,7 @@ public static class HostingExtensions
 
         services.ConfigureApplicationCookie(o =>
         {
-            o.Cookie.Name = "identity";
+            o.Cookie.Name = "deepin.identity";
             o.Events.OnRedirectToLogin = ctx =>
             {
                 if (ctx.Request.Path.StartsWithSegments("/api"))
@@ -232,6 +234,10 @@ public static class HostingExtensions
             app.UseDeveloperExceptionPage();
             app.MapOpenApi();
         }
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
         app.UseDefaultFiles();
         app.MapStaticAssets();
 
