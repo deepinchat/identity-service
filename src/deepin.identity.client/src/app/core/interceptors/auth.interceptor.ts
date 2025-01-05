@@ -5,7 +5,10 @@ import { inject } from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const accountService = inject(AccountService);
-  return next(req).pipe(catchError(err => {
+  const clonedReq = req.clone({
+    withCredentials: true
+  });
+  return next(clonedReq).pipe(catchError(err => {
     if (err.status === 401) {
       accountService.logout();
     }
