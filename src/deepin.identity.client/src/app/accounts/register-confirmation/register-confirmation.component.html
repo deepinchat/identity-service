@@ -1,1 +1,16 @@
-<p>register-confirmation works!</p>
+<mat-card class="login-card">
+    <mat-card-header>
+        <mat-card-title>DEEPIN</mat-card-title>
+        <mat-card-subtitle>Confirm Email.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Verfication Code</mat-label>
+                <input type="text" nz-input formControlName="code" placeholder="Verfication Code" />
+            </mat-form-field>
+            <button class="full-width" mat-flat-button color="primary" type="submit"
+                [disabled]="isLoading || form.invalid">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>

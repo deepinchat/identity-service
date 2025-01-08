@@ -55,7 +55,7 @@ export class RegisterComponent {
     this.accountService.register(this.form?.value)
       .subscribe({
         next: (user) => {
-          this.router.navigate(['/confirm-register'], { queryParams: { id: user.id, returnUrl: this.returnUrl } });
+          this.router.navigate(['/confirm-register'], { queryParams: { email: user.email, returnUrl: this.returnUrl } });
         },
         error: (err) => {
           console.error(err);

@@ -38,8 +38,8 @@ public static class HostingExtensions
             RedisConnection = builder.Configuration.GetConnectionString("Redis") ?? throw new ArgumentNullException("RedisConnection must be not null.")
         };
         builder.Services
-            .AddCustomMvc()
             .AddCustomCookiePolicy()
+            .AddCustomMvc()
             .AddInfrastructure(appSettings)
             .AddApplication()
             .AddCustomIdentity()
@@ -262,11 +262,11 @@ public static class HostingExtensions
         app.UseHttpsRedirection();
 
         app.UseCookiePolicy();
+        app.UseCors(ALLOW_ANY_CORS_POLICY);
 
         app.UseIdentityServer();
         app.UseAuthorization();
 
-        app.UseCors(ALLOW_ANY_CORS_POLICY);
 
         app.MapHealthChecks("health");
         app.MapControllers();

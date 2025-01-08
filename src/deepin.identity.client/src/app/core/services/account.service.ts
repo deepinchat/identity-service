@@ -17,7 +17,8 @@ export class AccountService {
 
   register(request: RegisterRequest) {
     return this.http.post<{
-      id: string
+      id: string,
+      email: string
     }>(`${ACCOUNTS_API}/register`, request);
   }
 
@@ -43,13 +44,13 @@ export class AccountService {
     return this.http.get(`${ACCOUNTS_API}/externalCallback`);
   }
 
-  confirmEmail(request: { userId: string, code: string }) {
+  confirmEmail(request: { email: string, code: string }) {
     return this.http.post(`${ACCOUNTS_API}/confirmEmail`, request);
   }
 
-  resendEmailConfirmation(uid: string) {
+  resendEmailConfirmation(email: string) {
     return this.http.post(`${ACCOUNTS_API}/resendEmailConfirmation`, {
-      userId: uid
+      email
     });
   }
 
