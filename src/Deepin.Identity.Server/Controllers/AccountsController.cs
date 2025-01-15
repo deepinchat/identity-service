@@ -139,7 +139,7 @@ public class AccountsController(
         }
         return BadRequest(ModelState);
     }
-    [HttpGet("ResendEmailConfirmation")]
+    [HttpPost("ResendEmailConfirmation")]
     [AllowAnonymous]
     public async Task<IActionResult> ResendEmailConfirmation(string id)
     {

@@ -48,10 +48,8 @@ export class AccountService {
     return this.http.post(`${ACCOUNTS_API}/confirmEmail`, request);
   }
 
-  resendEmailConfirmation(email: string) {
-    return this.http.post(`${ACCOUNTS_API}/resendEmailConfirmation`, {
-      email
-    });
+  resendEmailConfirmation(userId: string) {
+    return this.http.post(`${ACCOUNTS_API}/resendEmailConfirmation?id=${userId}`, null);
   }
 
   loginWith2fa(request: LoginWithTwoFactorRequest) {

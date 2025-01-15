@@ -7,7 +7,15 @@
         <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Verfication Code</mat-label>
-                <input type="text" nz-input formControlName="code" placeholder="Verfication Code" />
+                <input matInput type="text" formControlName="code" placeholder="Verfication Code"
+                    formControlName="code" />
+                <button type="button" [disabled]="isSending || sendInterval > 0" mat-icon-button matSuffix
+                    (click)="resendEmailConfirmation()" [attr.aria-label]="'Resend email confirmation'">
+                    @if (sendInterval > 0) {
+                    {{sendInterval}}s
+                    }
+                    <mat-icon *ngIf="sendInterval === 0">send</mat-icon>
+                </button>
             </mat-form-field>
             <button class="full-width" mat-flat-button color="primary" type="submit"
                 [disabled]="isLoading || form.invalid">Submit</button>
