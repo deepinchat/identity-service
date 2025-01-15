@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ForgotPasswordRequest, LoginRequest, LoginWithTwoFactorRequest, RegisterRequest, ResetPasswordRequest } from '../models/identity.model';
+import { ConfirmEmailRequest, ForgotPasswordRequest, LoginRequest, LoginWithTwoFactorRequest, RegisterRequest, ResetPasswordRequest } from '../models/identity.model';
 import { catchError, map, of } from 'rxjs';
 
 const ACCOUNTS_API = `${environment.apiUrl}/api/v1/accounts`;
@@ -44,7 +44,7 @@ export class AccountService {
     return this.http.get(`${ACCOUNTS_API}/externalCallback`);
   }
 
-  confirmEmail(request: { email: string, code: string }) {
+  confirmEmail(request: ConfirmEmailRequest) {
     return this.http.post(`${ACCOUNTS_API}/confirmEmail`, request);
   }
 

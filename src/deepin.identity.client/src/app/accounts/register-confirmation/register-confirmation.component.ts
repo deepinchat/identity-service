@@ -33,9 +33,9 @@ export class RegisterConfirmationComponent {
   }
 
   ngOnInit() {
-    if (this.route.snapshot.queryParamMap.has('email')) {
+    if (this.route.snapshot.queryParamMap.has('id')) {
       this.form = this.fb.group({
-        email: this.fb.control(this.route.snapshot.queryParamMap.get('email')),
+        userId: this.fb.control(this.route.snapshot.queryParamMap.get('id')),
         code: this.fb.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]),
       });
     }
@@ -47,7 +47,7 @@ export class RegisterConfirmationComponent {
     this.accountService.confirmEmail(this.form?.value)
       .subscribe({
         next: () => {
-          this.router.navigate(['../forgot-password'], { relativeTo: this.route, queryParams: { email: this.form?.value.email } });
+          this.router.navigate(['../signin'], { relativeTo: this.route });
         },
         error: () => {
 

@@ -1,4 +1,5 @@
-﻿using Deepin.Identity.Application.Extensions;
+﻿using Deepin.EventBus.RabbitMQ;
+using Deepin.Identity.Application.Extensions;
 using Deepin.Identity.Domain.Entities;
 using Deepin.Identity.Infrastructure;
 using Deepin.Identity.Infrastructure.Configurations;
@@ -44,7 +45,8 @@ public static class HostingExtensions
             .AddApplication()
             .AddCustomIdentity()
             .AddCustomIdentityServer(builder.Environment, builder.Configuration)
-            .AddCustomDataProtection(appSettings);
+            .AddCustomDataProtection(appSettings)
+            .AddEventBus(builder.Configuration);
 
         builder.Services
             .AddMigration<IdentityContext>()
@@ -109,6 +111,16 @@ public static class HostingExtensions
         });
         return services;
     }
+    private static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
+    {
+        var rabbitMqConfig = configuration.GetSection(RabbitMqConfiguration.ConfigurationKey).Get<RabbitMqConfiguration>();
+        if (rabbitMqConfig is null)
+        {
+            throw new ArgumentNullException(nameof(rabbitMqConfig), "RabbitMQ configuration cannot be null");
+        }
+        services.AddEventBusRabbitMQ(rabbitMqConfig, typeof(HostingExtensions).Assembly);
+        return services;
+    }
     private static IServiceCollection AddCustomIdentity(this IServiceCollection services)
     {
         services
@@ -118,11 +130,12 @@ public static class HostingExtensions
 
         services.Configure<IdentityOptions>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = false;
+            options.SignIn.RequireConfirmedAccount = true;
             options.User.RequireUniqueEmail = true;
             options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
             options.Tokens.ChangeEmailTokenProvider = TokenOptions.DefaultEmailProvider;
             options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+            options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultEmailProvider;
         });
 
         services.ConfigureApplicationCookie(o =>

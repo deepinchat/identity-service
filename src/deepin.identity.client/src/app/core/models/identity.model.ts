@@ -27,3 +27,7 @@ export interface LoginWithTwoFactorRequest {
     rememberMe: boolean;
     rememberMachine: boolean;
 }
+export interface ConfirmEmailRequest {
+    userId: string;
+    code: string;
+}
