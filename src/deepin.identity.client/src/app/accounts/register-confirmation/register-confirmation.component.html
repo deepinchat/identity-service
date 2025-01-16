@@ -9,12 +9,12 @@
                 <mat-label>Verfication Code</mat-label>
                 <input matInput type="text" formControlName="code" placeholder="Verfication Code"
                     formControlName="code" />
-                <button type="button" [disabled]="isSending || sendInterval > 0" mat-icon-button matSuffix
+                <button *ngIf="sendInterval === 0" type="button" [disabled]="isSending || sendInterval > 0" mat-icon-button matSuffix
                     (click)="resendEmailConfirmation()" [attr.aria-label]="'Resend email confirmation'">
-                    @if (sendInterval > 0) {
-                    {{sendInterval}}s
-                    }
                     <mat-icon *ngIf="sendInterval === 0">send</mat-icon>
+                </button>
+                <button *ngIf="sendInterval > 0" type="button" [disabled]="true" mat-button matSuffix>
+                    {{sendInterval}}s
                 </button>
             </mat-form-field>
             <button class="full-width" mat-flat-button color="primary" type="submit"
