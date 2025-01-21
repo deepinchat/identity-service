@@ -16,11 +16,11 @@ public static class Config
         new ApiResource(ApiConstants.IdentityApi.Name){
             Scopes = ApiConstants.IdentityApi.Scopes.Select(s=>s.Name).ToArray()
         },
-        new ApiResource(ApiConstants.FileApi.Name){
-            Scopes = ApiConstants.FileApi.Scopes.Select(s=>s.Name).ToArray()
+        new ApiResource(ApiConstants.StorageApi.Name){
+            Scopes = ApiConstants.StorageApi.Scopes.Select(s=>s.Name).ToArray()
         }];
     public static IEnumerable<ApiScope> ApiScopes =>
-        ApiConstants.IdentityApi.Scopes.Concat(ApiConstants.FileApi.Scopes);
+        ApiConstants.IdentityApi.Scopes.Concat(ApiConstants.StorageApi.Scopes);
     public static IEnumerable<Client> Clients =>
         new List<Client>
         {
@@ -34,8 +34,19 @@ public static class Config
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "identity.admin",
-                        "file.admin"
                 }
+            },
+            new Client
+            {
+                ClientId = "deepinswaggerui",
+                ClientName = "Deepin Swagger UI",
+                AllowedGrantTypes = GrantTypes.Implicit,
+                AllowAccessTokensViaBrowser = true,
+                RedirectUris = {"https://localhost:5000/swagger/oauth2-redirect.html"},
+                AllowedScopes = {
+                    "storage"
+                },
+                RequireConsent = false,
             }
         };
 }
