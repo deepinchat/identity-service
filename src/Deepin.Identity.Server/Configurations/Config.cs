@@ -18,9 +18,20 @@ public static class Config
         },
         new ApiResource(ApiConstants.StorageApi.Name){
             Scopes = ApiConstants.StorageApi.Scopes.Select(s=>s.Name).ToArray()
+        },
+        new ApiResource(ApiConstants.ChattingApi.Name){
+            Scopes = ApiConstants.ChattingApi.Scopes.Select(s=>s.Name).ToArray()
+        },
+        new ApiResource(ApiConstants.MessageApi.Name){
+            Scopes = ApiConstants.MessageApi.Scopes.Select(s=>s.Name).ToArray()
+        },
+        new ApiResource(ApiConstants.EmailingApi.Name){
+            Scopes = ApiConstants.EmailingApi.Scopes.Select(s=>s.Name).ToArray()
+        },
+        new ApiResource(ApiConstants.PresenceApi.Name){
+            Scopes = ApiConstants.PresenceApi.Scopes.Select(s=>s.Name).ToArray()
         }];
-    public static IEnumerable<ApiScope> ApiScopes =>
-        ApiConstants.IdentityApi.Scopes.Concat(ApiConstants.StorageApi.Scopes);
+    public static IEnumerable<ApiScope> ApiScopes => ApiResources.SelectMany(r => r.Scopes).Select(s => new ApiScope(s));
     public static IEnumerable<Client> Clients =>
         new List<Client>
         {
@@ -30,11 +41,34 @@ public static class Config
                 ClientName = "Postman Client",
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                 ClientSecrets = {new Secret("secret".Sha256())},
-                AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "identity.admin",
-                }
+                AllowedScopes =
+                [
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    .. ApiScopes.Select(s => s.Name)
+                ],
+            },
+            new Client
+            {
+                ClientId = "deepinweb",
+                ClientName = "Deepin Web Client",
+                AllowedGrantTypes = GrantTypes.Code,
+                RequirePkce = true,
+                RequireClientSecret = false,
+                RequireConsent = false,
+                RedirectUris = {"https://localhost:4200/callback/signin","https://deepin.chat/callback/signin","https://deepin.me/callback/signin"},
+                PostLogoutRedirectUris = {"https://localhost:4200/callback/signout","https://deepin.chat/callback/signout","https://deepin.me/callback/signout"},
+                AllowedCorsOrigins = {"https://localhost:4200" , "https://deepin.chat","https://deepin.me"},
+                AllowedScopes =
+                [
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "upload",
+                    "download",
+                    "chat",
+                    "message",
+                    "presence",
+                ],
             },
             new Client
             {
@@ -43,9 +77,11 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowAccessTokensViaBrowser = true,
                 RedirectUris = {"https://localhost:5000/swagger/oauth2-redirect.html"},
-                AllowedScopes = {
-                    "storage"
-                },
+                AllowedScopes = [
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    .. ApiScopes.Select(s => s.Name)
+                ],
                 RequireConsent = false,
             }
         };
