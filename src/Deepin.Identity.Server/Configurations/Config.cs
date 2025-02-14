@@ -30,7 +30,11 @@ public static class Config
         },
         new ApiResource(ApiConstants.PresenceApi.Name){
             Scopes = ApiConstants.PresenceApi.Scopes.Select(s=>s.Name).ToArray()
-        }];
+        },
+        new ApiResource(ApiConstants.WebBffApi.Name){
+            Scopes = ApiConstants.WebBffApi.Scopes.Select(s=>s.Name).ToArray()
+        },
+        ];
     public static IEnumerable<ApiScope> ApiScopes => ApiResources.SelectMany(r => r.Scopes).Select(s => new ApiScope(s));
     public static IEnumerable<Client> Clients =>
         new List<Client>
@@ -56,9 +60,9 @@ public static class Config
                 RequirePkce = true,
                 RequireClientSecret = false,
                 RequireConsent = false,
-                RedirectUris = {"https://localhost:4200/callback/signin","https://deepin.chat/callback/signin","https://deepin.me/callback/signin"},
-                PostLogoutRedirectUris = {"https://localhost:4200/callback/signout","https://deepin.chat/callback/signout","https://deepin.me/callback/signout"},
-                AllowedCorsOrigins = {"https://localhost:4200" , "https://deepin.chat","https://deepin.me"},
+                RedirectUris = {"http://localhost:4200/callback/signin","https://deepin.chat/callback/signin","https://deepin.me/callback/signin"},
+                PostLogoutRedirectUris = {"http://localhost:4200/callback/signout","https://deepin.chat/callback/signout","https://deepin.me/callback/signout"},
+                AllowedCorsOrigins = {"http://localhost:4200" , "https://deepin.chat","https://deepin.me"},
                 AllowedScopes =
                 [
                     IdentityServerConstants.StandardScopes.OpenId,
@@ -68,6 +72,7 @@ public static class Config
                     "chat",
                     "message",
                     "presence",
+                    "webbff"
                 ],
             },
             new Client
@@ -76,7 +81,7 @@ public static class Config
                 ClientName = "Deepin Swagger UI",
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowAccessTokensViaBrowser = true,
-                RedirectUris = {"https://localhost:5000/swagger/oauth2-redirect.html"},
+                RedirectUris = {"http://localhost:5000/swagger/oauth2-redirect.html"},
                 AllowedScopes = [
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,

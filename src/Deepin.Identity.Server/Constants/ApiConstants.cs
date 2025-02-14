@@ -60,4 +60,12 @@ public static class ApiConstants
                 new ApiScope("presence", "User presence"),
             ];
     }
+    public class WebBffApi
+    {
+        public static string Name => "webbff";
+        public static ApiScope[] Scopes =>
+            [
+                new ApiScope("webbff", "Web BFF API scope"),
+            ];
+    }
 }
