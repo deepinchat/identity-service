@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Deepin.Identity.Infrastructure.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20241220093202_InitialCreate")]
+    [Migration("20250216142524_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("idsv")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -158,7 +158,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("role_claim", "idsv");
+                    b.ToTable("role_claims", "idsv");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -183,7 +183,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_claim", "idsv");
+                    b.ToTable("user_claims", "idsv");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -205,7 +205,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_login", "idsv");
+                    b.ToTable("user_logins", "idsv");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -220,7 +220,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("user_role", "idsv");
+                    b.ToTable("user_roles", "idsv");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -239,7 +239,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("user_token", "idsv");
+                    b.ToTable("user_tokens", "idsv");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

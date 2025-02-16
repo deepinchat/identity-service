@@ -6,6 +6,7 @@ using Deepin.Identity.Infrastructure.Configurations;
 using Deepin.Identity.Infrastructure.Extensions;
 using Deepin.Identity.Server.Infrastructure.Filters;
 using Deepin.Identity.Server.Setup;
+using Deepin.ServiceDefaults.Extensions;
 using Duende.IdentityServer;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
@@ -46,7 +47,8 @@ public static class HostingExtensions
             .AddCustomIdentity()
             .AddCustomIdentityServer(builder.Environment, builder.Configuration)
             .AddCustomDataProtection(appSettings)
-            .AddEventBus(builder.Configuration);
+            .AddEventBus(builder.Configuration)
+            .AddDefaultUserContexts();
 
         builder.Services
             .AddMigration<IdentityContext>()

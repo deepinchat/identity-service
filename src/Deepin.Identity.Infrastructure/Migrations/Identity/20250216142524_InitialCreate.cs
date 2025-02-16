@@ -61,7 +61,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "role_claim",
+                name: "role_claims",
                 schema: "idsv",
                 columns: table => new
                 {
@@ -73,9 +73,9 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_role_claim", x => x.Id);
+                    table.PrimaryKey("PK_role_claims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_role_claim_roles_RoleId",
+                        name: "FK_role_claims_roles_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "idsv",
                         principalTable: "roles",
@@ -84,7 +84,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "user_claim",
+                name: "user_claims",
                 schema: "idsv",
                 columns: table => new
                 {
@@ -96,9 +96,9 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user_claim", x => x.Id);
+                    table.PrimaryKey("PK_user_claims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_user_claim_users_UserId",
+                        name: "FK_user_claims_users_UserId",
                         column: x => x.UserId,
                         principalSchema: "idsv",
                         principalTable: "users",
@@ -107,7 +107,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "user_login",
+                name: "user_logins",
                 schema: "idsv",
                 columns: table => new
                 {
@@ -118,9 +118,9 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user_login", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_user_logins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_user_login_users_UserId",
+                        name: "FK_user_logins_users_UserId",
                         column: x => x.UserId,
                         principalSchema: "idsv",
                         principalTable: "users",
@@ -129,7 +129,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "user_role",
+                name: "user_roles",
                 schema: "idsv",
                 columns: table => new
                 {
@@ -138,16 +138,16 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user_role", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_user_roles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_user_role_roles_RoleId",
+                        name: "FK_user_roles_roles_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "idsv",
                         principalTable: "roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_user_role_users_UserId",
+                        name: "FK_user_roles_users_UserId",
                         column: x => x.UserId,
                         principalSchema: "idsv",
                         principalTable: "users",
@@ -156,7 +156,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "user_token",
+                name: "user_tokens",
                 schema: "idsv",
                 columns: table => new
                 {
@@ -167,9 +167,9 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user_token", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_user_tokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_user_token_users_UserId",
+                        name: "FK_user_tokens_users_UserId",
                         column: x => x.UserId,
                         principalSchema: "idsv",
                         principalTable: "users",
@@ -178,9 +178,9 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_role_claim_RoleId",
+                name: "IX_role_claims_RoleId",
                 schema: "idsv",
-                table: "role_claim",
+                table: "role_claims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -191,21 +191,21 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_user_claim_UserId",
+                name: "IX_user_claims_UserId",
                 schema: "idsv",
-                table: "user_claim",
+                table: "user_claims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_user_login_UserId",
+                name: "IX_user_logins_UserId",
                 schema: "idsv",
-                table: "user_login",
+                table: "user_logins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_user_role_RoleId",
+                name: "IX_user_roles_RoleId",
                 schema: "idsv",
-                table: "user_role",
+                table: "user_roles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -226,23 +226,23 @@ namespace Deepin.Identity.Infrastructure.Migrations.Identity
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "role_claim",
+                name: "role_claims",
                 schema: "idsv");
 
             migrationBuilder.DropTable(
-                name: "user_claim",
+                name: "user_claims",
                 schema: "idsv");
 
             migrationBuilder.DropTable(
-                name: "user_login",
+                name: "user_logins",
                 schema: "idsv");
 
             migrationBuilder.DropTable(
-                name: "user_role",
+                name: "user_roles",
                 schema: "idsv");
 
             migrationBuilder.DropTable(
-                name: "user_token",
+                name: "user_tokens",
                 schema: "idsv");
 
             migrationBuilder.DropTable(

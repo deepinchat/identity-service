@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Deepin.Identity.Infrastructure.Migrations.Configuration
 {
     [DbContext(typeof(ConfigurationContext))]
-    [Migration("20241220093151_InitialCreate")]
+    [Migration("20250216142528_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Deepin.Identity.Infrastructure.Migrations.Configuration
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("idsv")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
