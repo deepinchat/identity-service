@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'src/**'
     paths-ignore:
       - 'src/Deepin.Identity.Server/**'
+      - '.github/workflows/docker-image-ci.yaml'
 
 jobs:
   docker-build-and-push:
