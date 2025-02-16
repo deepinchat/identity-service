@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json.Linq;
 using System.Net;
-using Deepin.Identity.Domain;
-using System.ComponentModel.DataAnnotations;
 using Deepin.Identity.Server.Infrastructure.ActionResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +13,7 @@ public class HttpGlobalExceptionFilter(ILogger<HttpGlobalExceptionFilter> logger
     public void OnException(ExceptionContext context)
     {
         logger.LogError(new EventId(context.Exception.HResult), context.Exception, context.Exception.Message);
-        if (context.Exception.GetType() == typeof(DomainException))
+        if (context.Exception.GetType() == typeof(Deepin.Domain.Exceptions.DomainException))
         {
             var problemDetails = new HttpValidationProblemDetails()
             {
