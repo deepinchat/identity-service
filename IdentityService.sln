@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A67E6FB2-F7F5-445B-BEAE-97C7582FB1BB}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\docker-image-ci.yaml = .github\workflows\docker-image-ci.yaml
+		.github\workflows\docker-image-ci-for-api.yaml = .github\workflows\docker-image-ci-for-api.yaml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -20,6 +21,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.Server", "src\Deepin.Identity.Server\Deepin.Identity.Server.csproj", "{F348149E-AEE9-4114-ADCC-224D6CC8C797}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "deepin.identity.client", "src\deepin.identity.client\deepin.identity.client.esproj", "{21FD209A-E891-4A52-BC6E-330C2D79DCE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deepin.Identity.API", "src\Deepin.Identity.API\Deepin.Identity.API.csproj", "{E7C08102-D86F-47F5-B1AF-C48F15F666F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +52,10 @@ Global
 		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21FD209A-E891-4A52-BC6E-330C2D79DCE8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E7C08102-D86F-47F5-B1AF-C48F15F666F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C08102-D86F-47F5-B1AF-C48F15F666F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C08102-D86F-47F5-B1AF-C48F15F666F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C08102-D86F-47F5-B1AF-C48F15F666F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +66,6 @@ Global
 		{0992798F-164A-48A5-BF90-7EB17F1AB886} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
 		{F348149E-AEE9-4114-ADCC-224D6CC8C797} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
 		{21FD209A-E891-4A52-BC6E-330C2D79DCE8} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
+		{E7C08102-D86F-47F5-B1AF-C48F15F666F8} = {010E05B0-E1EC-40C9-AEB6-588F213EB419}
 	EndGlobalSection
 EndGlobal

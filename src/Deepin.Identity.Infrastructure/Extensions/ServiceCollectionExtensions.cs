@@ -10,8 +10,7 @@ public static class ServiceCollectionExtensions
     {
         return services
              .AddSingleton(appSettings)
-             .AddDbContexts(appSettings)
-             .AddCaching(appSettings);
+             .AddDbContexts(appSettings);
     }
     private static IServiceCollection AddDbContexts(this IServiceCollection services, AppSettings appSettings)
     {
@@ -36,22 +35,6 @@ public static class ServiceCollectionExtensions
                 sql.EnableRetryOnFailure(3);
             });
         });
-        return services;
-    }
-    private static IServiceCollection AddCaching(this IServiceCollection services, AppSettings appSettings)
-    {
-        if (appSettings.UseRedisCache)
-        {
-
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = appSettings.RedisConnection;
-            });
-        }
-        else
-        {
-            services.AddMemoryCache();
-        }
         return services;
     }
 }

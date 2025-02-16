@@ -57,6 +57,7 @@ public static class Config
                 ClientId = "deepinweb",
                 ClientName = "Deepin Web Client",
                 AllowedGrantTypes = GrantTypes.Code,
+                AllowAccessTokensViaBrowser = true,
                 RequirePkce = true,
                 RequireClientSecret = false,
                 RequireConsent = false,
@@ -72,8 +73,11 @@ public static class Config
                     "chat",
                     "message",
                     "presence",
-                    "webbff"
+                    "webbff",
+                    "identity.user"
                 ],
+                AccessTokenLifetime = 3600,
+                IdentityTokenLifetime = 1800,
             },
             new Client
             {
@@ -81,7 +85,7 @@ public static class Config
                 ClientName = "Deepin Swagger UI",
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowAccessTokensViaBrowser = true,
-                RedirectUris = {"http://localhost:5000/swagger/oauth2-redirect.html"},
+                RedirectUris = {"http://localhost:5000/swagger/oauth2-redirect.html","https://localhost:5000/swagger/oauth2-redirect.html"},
                 AllowedScopes = [
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,

@@ -1,15 +1,17 @@
 ﻿using Duende.IdentityServer.Models;
 
 namespace Deepin.Identity.Server.Constants;
-
 public static class ApiConstants
 {
     public class IdentityApi
     {
-        public static string Name => "users";
+        public static string Name => "identity";
         public static ApiScope[] Scopes =>
             [
                 new ApiScope("identity.server", "Identity server API scope"),
+                new ApiScope("identity.client", "Identity client API scope"),
+                new ApiScope("identity.user", "Identity user API scope"),
+                new ApiScope("identity.role", "Identity role API scope")
             ];
     }
 

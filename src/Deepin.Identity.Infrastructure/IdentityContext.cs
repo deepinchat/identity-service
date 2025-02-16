@@ -23,9 +23,9 @@ public class IdentityContext : IdentityDbContext<User, Role, string>
             b.Property(x => x.CreatedAt).HasColumnType("timestamp with time zone").ValueGeneratedOnAdd().HasDefaultValueSql("now()");
             b.Property(x => x.UpdatedAt).HasColumnType("timestamp with time zone").ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("now()");
         });
-        builder.Entity<IdentityUserLogin<string>>().ToTable("user_login");
-        builder.Entity<IdentityUserClaim<string>>().ToTable("user_claim");
-        builder.Entity<IdentityUserToken<string>>().ToTable("user_token");
+        builder.Entity<IdentityUserLogin<string>>().ToTable("user_logins");
+        builder.Entity<IdentityUserClaim<string>>().ToTable("user_claims");
+        builder.Entity<IdentityUserToken<string>>().ToTable("user_tokens");
 
         builder.Entity<Role>(b =>
         {
@@ -33,7 +33,7 @@ public class IdentityContext : IdentityDbContext<User, Role, string>
             b.Property(x => x.CreatedAt).HasColumnType("timestamp with time zone").ValueGeneratedOnAdd().HasDefaultValueSql("now()");
             b.Property(x => x.UpdatedAt).HasColumnType("timestamp with time zone").ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("now()");
         });
-        builder.Entity<IdentityRoleClaim<string>>().ToTable("role_claim");
-        builder.Entity<IdentityUserRole<string>>().ToTable("user_role");
+        builder.Entity<IdentityRoleClaim<string>>().ToTable("role_claims");
+        builder.Entity<IdentityUserRole<string>>().ToTable("user_roles");
     }
 }

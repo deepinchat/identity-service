@@ -7,7 +7,7 @@ on:
     paths:
       - 'src/**'
     paths-ignore:
-      - 'src/Deepin.Identity.API/**'
+      - 'src/Deepin.Identity.Server/**'
 
 jobs:
   docker-build-and-push:
@@ -30,11 +30,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./src/Deepin.Identity.Server/Dockerfile
+          file: ./src/Deepin.Identity.API/Dockerfile
           push: true
           tags: |
-            ${{ vars.DOCKER_USERNAME }}/identity-server:latest
-            ${{ vars.DOCKER_USERNAME }}/identity-server:${{ github.sha }}
+            ${{ vars.DOCKER_USERNAME }}/identity-service:latest
+            ${{ vars.DOCKER_USERNAME }}/identity-service:${{ github.sha }}
 
   update-deployment-repo:
     needs: docker-build-and-push
@@ -48,14 +48,14 @@ jobs:
 
       - name: Update deployment file and Push changes
         run: |
-          BRANCH_NAME=deployment/identity-server/${{ github.sha }}
+          BRANCH_NAME=deployment/identity-service/${{ github.sha }}
           git config user.identity "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git checkout -b $BRANCH_NAME
-          sed --in-place 's|image: .*$|image: ${{ vars.DOCKER_USERNAME }}/identity-server:${{ github.sha }}|' argocd/identity-server/base/deployment.yaml
-          sed --in-place 's|newTag: .*$|newTag: ${{ github.sha }}|' argocd/identity-server/nas/kustomization.yaml
+          sed --in-place 's|image: .*$|image: ${{ vars.DOCKER_USERNAME }}/identity-service:${{ github.sha }}|' argocd/identity-service/base/deployment.yaml
+          sed --in-place 's|newTag: .*$|newTag: ${{ github.sha }}|' argocd/identity-service/nas/kustomization.yaml
           git add .
-          git commit -m "Update identity-server image tag to ${{ github.sha }}"
+          git commit -m "Update identity-service image tag to ${{ github.sha }}"
           git push origin $BRANCH_NAME
 
       - name: Create Pull Request
@@ -66,10 +66,10 @@ jobs:
             const { data: pullRequest } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: '${{ vars.DEPLOYMENT_REPOSITORY }}',
-              title: 'Update identity-server image tag to ${{ github.sha }}',
-              head: 'deployment/identity-server/${{ github.sha }}',
+              title: 'Update identity-service image tag to ${{ github.sha }}',
+              head: 'deployment/identity-service/${{ github.sha }}',
               base: 'master',
-              body: 'This PR updates the identity-server image tag to ${{ github.sha }}.',
+              body: 'This PR updates the identity-service image tag to ${{ github.sha }}.',
               draft: false,
               maintainer_can_modify: true
             });
@@ -77,6 +77,6 @@ jobs:
               owner: context.repo.owner,
               repo: '${{ vars.DEPLOYMENT_REPOSITORY }}',
               issue_number: pullRequest.number,
-              labels: ['deployment', 'identity-server'],
+              labels: ['deployment', 'identity-service'],
             });
             core.setOutput('pull-request-number', pullRequest.number);

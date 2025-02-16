@@ -113,7 +113,7 @@ public static class HostingExtensions
     }
     private static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
     {
-        var rabbitMqConfig = configuration.GetSection(RabbitMqConfiguration.ConfigurationKey).Get<RabbitMqConfiguration>();
+        var rabbitMqConfig = configuration.GetSection(RabbitMqOptions.ConfigurationKey).Get<RabbitMqOptions>();
         if (rabbitMqConfig is null)
         {
             throw new ArgumentNullException(nameof(rabbitMqConfig), "RabbitMQ configuration cannot be null");
