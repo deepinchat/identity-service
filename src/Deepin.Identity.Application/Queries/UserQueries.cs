@@ -16,7 +16,7 @@ public class UserQueries(AppSettings appSettings) : IUserQueries
         using var connection = new NpgsqlConnection(_appSettings.IdentityDbConnection);
         connection.Open();
         var sql = @"SELECT
-                user.Id, user.UserName, user.Email, user.PhoneNumber, user.CreatedAt, user.UpdatedAt
+                user.Id, user.UserName, user.Email, user.PhoneNumber, user.CreatedAt, user.UpdatedAt,
                 user_claim.ClaimType, user_claim.ClaimValue
                 FROM users user
                 LEFT JOIN user_claims user_claim ON user_claim.user_id = user.id
