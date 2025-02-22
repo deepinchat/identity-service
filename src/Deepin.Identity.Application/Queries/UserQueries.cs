@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace Deepin.Identity.Application.Queries;
 
-public class UserQueries(AppSettings appSettings) : IUserQueries
+public class UserQueries(AppSettings appSettings) : QueryBase, IUserQueries
 {
     private readonly AppSettings _appSettings = appSettings;
 
@@ -16,12 +16,12 @@ public class UserQueries(AppSettings appSettings) : IUserQueries
         using var connection = new NpgsqlConnection(_appSettings.IdentityDbConnection);
         connection.Open();
         var sql = @"SELECT
-                user.Id, user.UserName, user.Email, user.PhoneNumber, user.CreatedAt, user.UpdatedAt,
-                user_claim.ClaimType, user_claim.ClaimValue
-                FROM users user
-                LEFT JOIN user_claims user_claim ON user_claim.user_id = user.id
-                WHERE id = @id";
-        var rows = await connection.QueryAsync<dynamic>(sql, new { id });
+                u.""Id"", u.""UserName"", u.""Email"", u.""PhoneNumber"", u.""CreatedAt"", u.""UpdatedAt"",
+                user_claim.""ClaimType"", user_claim.""ClaimValue""
+                FROM ""users"" u
+                LEFT JOIN ""user_claims"" user_claim ON user_claim.""UserId"" = u.""Id""
+                WHERE u.""Id"" = @id";
+        var rows = await connection.QueryAsync<dynamic>(BuildSqlWithSchema(sql), new { id });
         var userProfiles = MapUserProfiles(rows);
         return userProfiles.FirstOrDefault();
     }
@@ -31,12 +31,12 @@ public class UserQueries(AppSettings appSettings) : IUserQueries
         using var connection = new NpgsqlConnection(_appSettings.IdentityDbConnection);
         connection.Open();
         var sql = @"SELECT
-                user.Id, user.UserName, user.Email, user.PhoneNumber, user.CreatedAt, user.UpdatedAt
-                user_claim.ClaimType, user_claim.ClaimValue
-                FROM users user
-                LEFT JOIN user_claims user_claim ON user_claim.user_id = user.id
-                WHERE id = ANY(@ids)";
-        var rows = await connection.QueryAsync<dynamic>(sql, new { ids });
+                u.""Id"", u.""UserName"", u.""Email"", u.""PhoneNumber"", u.""CreatedAt"", u.""UpdatedAt"",
+                user_claim.""ClaimType"", user_claim.""ClaimValue""
+                FROM ""users"" u
+                LEFT JOIN ""user_claims"" user_claim ON user_claim.""UserId"" = u.""Id""
+                WHERE u.""Id"" = ANY(@ids)";
+        var rows = await connection.QueryAsync<dynamic>(BuildSqlWithSchema(sql), new { ids });
         return MapUserProfiles(rows);
     }
 
@@ -56,7 +56,7 @@ public class UserQueries(AppSettings appSettings) : IUserQueries
                 CreatedAt = row.CreatedAt,
                 UpdatedAt = row.UpdatedAt
             };
-            var claims = group.Select(x => new Claim(x.ClaimType, x.ClaimValue));
+            var claims = group.Select(x => new { Type = x.ClaimType, Value = x.ClaimValue });
             foreach (var claim in claims)
             {
                 switch (claim.Type)
