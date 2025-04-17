@@ -57,12 +57,8 @@ export class LoginComponent {
     this.accountService.login(this.form?.value)
       .subscribe({
         next: () => {
-          if (this.returnUrl.startsWith('http://') || this.returnUrl.startsWith('https://')) {
-            window.location.href = this.returnUrl;
-          } else {
-            // Internal navigation
-            this.router.navigateByUrl(this.returnUrl);
-          }
+          const fullReturnUrl = this.returnUrl.startsWith('/') ? `${window.location.origin}${this.returnUrl}` : this.returnUrl;
+          window.location.href = fullReturnUrl
         },
         error: () => {
 
