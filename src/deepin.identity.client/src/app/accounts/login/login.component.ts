@@ -36,7 +36,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private accountService: AccountService
   ) {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? this.route.snapshot.queryParams['ReturnUrl'] ?? '/';
   }
 
   ngOnInit() {
@@ -57,7 +57,12 @@ export class LoginComponent {
     this.accountService.login(this.form?.value)
       .subscribe({
         next: () => {
-          this.router.navigateByUrl(this.returnUrl);
+          if (this.returnUrl.startsWith('http://') || this.returnUrl.startsWith('https://')) {
+            window.location.href = this.returnUrl;
+          } else {
+            // Internal navigation
+            this.router.navigateByUrl(this.returnUrl);
+          }
         },
         error: () => {
 
